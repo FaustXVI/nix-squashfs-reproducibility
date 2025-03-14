@@ -22,6 +22,7 @@ The exemple was given on Xubuntu, but the same happens on Ubuntu.
 
 Another interesting fact is that if I copy the aws files checked out by nix in a folder and use squashfs on that folder instead, then I always have the same restult regardless of the OS :
 ```
+4de3f240c1605b0903483a3397a744f5ce91768ebb9214cff5cb3ba64380536b
 ```
 
 This can be reproduced on the branch `copy-aws`
