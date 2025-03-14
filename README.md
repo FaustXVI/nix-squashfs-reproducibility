@@ -26,3 +26,8 @@ Another interesting fact is that if I copy the aws files checked out by nix in a
 ```
 
 This can be reproduced on the branch `copy-aws`
+
+However, dynamically copying the files doesn't solve the issue as demonstrated by the branch `dynamic-copy-aws`
+
+So it seems that, because we added the files to git, the problem got solved.
+
