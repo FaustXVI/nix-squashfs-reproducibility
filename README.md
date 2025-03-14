@@ -35,8 +35,7 @@ So it seems that, because we added the files to git, the problem got solved.
 Finally, on a computer that doesn't reproduce the correct `squashfs`, you can work around the problem by running nix in docker in sandbox mode as described in https://hub.docker.com/r/nixos/nix and demonstrated in the `docker` branch if you run the command :
 
 ```
-docker build --tag 'mynix' . && docker
- run -v .:/mnt --privileged --rm -ti mynix bash -c 'cd /root && cp /mnt/flake.* . && nix develop -i --command bash -c "nix run"'
+docker build --tag 'mynix' . && docker run -v .:/mnt --privileged --rm -ti mynix bash -c 'cd /root && cp /mnt/flake.* . && nix develop -i --command bash -c "nix run"'
 ```
 
 
