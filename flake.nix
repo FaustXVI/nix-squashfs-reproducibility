@@ -19,9 +19,11 @@
             script = pkgs.writeShellScriptBin "create-non-reproducible-squashfs"
               ''
                 set -x
+                DIR=/tmp/aws-copy
                 FILE=$(mktemp -u -t non-reproducible-XXX.squashfs)
                 # options for squashfs are copied from https://github.com/NixOS/nixpkgs/blob/845dc1e9cbc2e48640b8968af58b4a19db67aa8f/nixos/lib/make-squashfs.nix#L52
-                ${pkgs.squashfsTools}/bin/mksquashfs ${pkgs-aws.aws-c-common} $FILE -no-hardlinks -keep-as-directory -all-root -b 1048576 -comp gzip -Xcompression-level 1 -processors 1 -root-mode 0755 -no-compression > /dev/null
+                cp -a ${pkgs-aws.aws-c-common} $DIR
+                ${pkgs.squashfsTools}/bin/mksquashfs $DIR $FILE -no-hardlinks -keep-as-directory -all-root -b 1048576 -comp gzip -Xcompression-level 1 -processors 1 -root-mode 0755 -no-compression > /dev/null
                 ${pkgs.coreutils}/bin/sha256sum $FILE
               '';
           in
