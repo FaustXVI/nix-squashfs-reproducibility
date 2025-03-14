@@ -19,6 +19,7 @@ On my Xubuntu, I found something like* :
 but on Xubuntu it varies.
 
 The exemple was given on Xubuntu, but the same happens on Ubuntu.
+You may not reproduce it because I have seen some (most?) Ubuntu comptuers having the same result than my NixOS.
 
 Another interesting fact is that if I copy the aws files checked out by nix in a folder and use squashfs on that folder instead, then I always have the same restult regardless of the OS :
 ```
@@ -30,4 +31,11 @@ This can be reproduced on the branch `copy-aws`
 However, dynamically copying the files doesn't solve the issue as demonstrated by the branch `dynamic-copy-aws`
 
 So it seems that, because we added the files to git, the problem got solved.
+
+Finally, on a computer that doesn't reproduce the correct `squashfs`, you can work around the problem by running nix in docker in sandbox mode as described in https://hub.docker.com/r/nixos/nix and demonstrated in the `docker` branch if you run the command :
+
+```
+TODO
+```
+
 
