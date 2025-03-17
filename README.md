@@ -49,6 +49,36 @@ However, dynamically copying the files doesn't solve the issue as demonstrated b
 
 So it seems that, because we added the files to git, the problem got solved.
 
+## Reproducing
+
+You can run a xubuntu «live-cd» vm with :
+```
+nix run .#vm
+```
+
+Change the keyboard layout as you wish in `setting > keyboard > layout` and then mount this folder with :
+```
+sudo mount -t 9p shared /mnt
+```
+
+Go to `/mnt` and run
+```
+./vm/install-nix.sh
+```
+
+Close the terminal, open a new one and go back to `/mnt`.
+
+You are ready to reproduce the non-reproducibility with :
+```
+nix develop -i --command bash -c "nix run"
+```
+
+Interestingly new vms always produce the same result :
+```
+3ebddc49fb5e4ac37af6b182ce3e68e143e285455a9d8f08c1a7001cb8f314bb
+```
+
+
 ## Workaround
 
 Finally, on a computer that doesn't reproduce the correct `squashfs`, you can work around the problem by running nix in docker in sandbox mode as described in https://hub.docker.com/r/nixos/nix and demonstrated in the `docker` branch if you run the command :
