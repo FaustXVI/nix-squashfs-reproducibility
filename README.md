@@ -36,24 +36,11 @@ We thus focused on `squashfs`.
 
 This repository explains what we found.
 
-## Facts seen during analysis
-
-If I copy the aws files checked out by nix in a folder and use squashfs on that folder instead, then I always have the same restult regardless of the OS :
-```
-4de3f240c1605b0903483a3397a744f5ce91768ebb9214cff5cb3ba64380536b
-```
-
-This can be reproduced on the branch `copy-aws`
-
-However, dynamically copying the files doesn't solve the issue as demonstrated by the branch `dynamic-copy-aws`
-
-So it seems that, because we added the files to git, the problem got solved.
-
 ## Reproducing
 
 You can run a xubuntu «live-cd» vm with :
 ```
-nix run .#vm
+nix run .#vm.xubuntu
 ```
 
 Change the keyboard layout as you wish in `setting > keyboard > layout` and then mount this folder with :
@@ -78,6 +65,11 @@ Interestingly new vms always produce the same result :
 3ebddc49fb5e4ac37af6b182ce3e68e143e285455a9d8f08c1a7001cb8f314bb
 ```
 
+You can also do the same steps in a ubuntu with :
+```
+nix run .#vm.ubuntu
+```
+This will give the same result as the xubuntu.
 
 ## Workaround
 

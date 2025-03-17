@@ -32,17 +32,27 @@
             };
           vm =
             let
-              xubuntu = pkgs.fetchurl {
-                url = "http://ftp.free.fr/mirrors/ftp.xubuntu.com/releases/24.04/release/xubuntu-24.04.2-minimal-amd64.iso";
-                hash = "sha256-7TSyEyltXgLOtOwZzcIc5QI7j00JmqGLh2Rox8sdQbo=";
-              };
-              testScript = pkgs.writeShellScriptBin "test-iso" ''
-                ${pkgs.qemu}/bin/qemu-system-x86_64 -bios ${pkgs.OVMF.fd}/FV/OVMF.fd -enable-kvm -m 4G -cdrom ${xubuntu} -virtfs local,path=.,mount_tag=shared,security_model=mapped-xattr "$@"
+              testScript = iso: pkgs.writeShellScriptBin "test-iso" ''
+                ${pkgs.qemu}/bin/qemu-system-x86_64 -bios ${pkgs.OVMF.fd}/FV/OVMF.fd -enable-kvm -m 6G -cdrom ${iso} -virtfs local,path=.,mount_tag=shared,security_model=mapped-xattr "$@"
               '';
             in
             {
-              type = "app";
-              program = "${pkgs.lib.getExe testScript}";
+              ubuntu =
+                {
+                  type = "app";
+                  program = "${pkgs.lib.getExe (testScript (pkgs.fetchurl {
+                  url = "https://releases.ubuntu.com/24.04.2/ubuntu-24.04.2-desktop-amd64.iso";
+                  hash = "sha256-1/49agQZZn0vjv8SeWmWMo2qLU+QzZ+HqpNxs2L5h78=";
+                }))}";
+                };
+              xubuntu =
+                {
+                  type = "app";
+                  program = "${pkgs.lib.getExe (testScript (pkgs.fetchurl {
+                  url = "http://ftp.free.fr/mirrors/ftp.xubuntu.com/releases/24.04/release/xubuntu-24.04.2-minimal-amd64.iso";
+                  hash = "sha256-7TSyEyltXgLOtOwZzcIc5QI7j00JmqGLh2Rox8sdQbo=";
+                }))}";
+                };
             };
         };
         devShells.default = pkgs.mkShell {
