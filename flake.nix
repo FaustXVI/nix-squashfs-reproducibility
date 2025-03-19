@@ -49,6 +49,17 @@
               '';
             in
             {
+              nixos =
+                {
+                  type = "app";
+                  program = "${pkgs.lib.getExe (testScript ("${(nixpkgs.lib.nixosSystem {
+                      system = "x86_64-linux";
+                      modules = [
+                        "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+                        {nix.settings.experimental-features = [ "nix-command" "flakes" ];}
+                      ];
+                    }).config.system.build.isoImage}/iso/*.iso"))}";
+                };
               ubuntu =
                 {
                   type = "app";

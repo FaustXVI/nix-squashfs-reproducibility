@@ -33,6 +33,8 @@ You can also add options to the `mksquashfs` command with :
 nix develop -i --command bash -c "nix run .#default -- <options>"
 ```
 
+I also added a nixos vm that you can run with `nix run .#vm.nixos`.
+
 ## A little bit of history
 
 The issue was discovered while trying to reproduce an custom iso for work.
