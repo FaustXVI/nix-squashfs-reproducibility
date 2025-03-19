@@ -24,6 +24,15 @@ The exemple was given on Xubuntu, but the same happens on Ubuntu.
 
 You may not reproduce it because I have seen some (most?) Ubuntu comptuers having the same result than my NixOS.
 
+## Evolutions following (discussion on github)[https://github.com/NixOS/nixpkgs/issues/390696]
+
+I added the command `nix run .#ls` to run `ls --recursive --full-time` on the aws folder.
+
+You can also add options to the `mksquashfs` command with :
+```
+nix develop -i --command bash -c "nix run .#default -- <options>"
+```
+
 ## A little bit of history
 
 The issue was discovered while trying to reproduce an custom iso for work.
